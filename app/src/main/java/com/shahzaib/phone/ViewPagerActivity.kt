@@ -40,13 +40,7 @@ class ViewPagerActivity : AppCompatActivity() {
         tabLayoutMediator.attach()
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
     companion object {
         private const val CONTACTS_REQUEST_CODE = 1
     }
-
-//    PHOTO_THUMBNAIL_URI, NUMBER, NORMALIZED_NUMBER
 }

@@ -44,7 +44,7 @@ class ContactsFragment: Fragment() {
         val contentResolver = mContext.contentResolver
         val nameCursor: Cursor? = contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI,
-            null, null, null, null)
+            null, null, null, "DISPLAY_NAME ASC")
         if (nameCursor!!.moveToFirst()) {
             do {
                 val id: String = nameCursor.getString(nameCursor.getColumnIndex(ContactsContract.Contacts._ID))
