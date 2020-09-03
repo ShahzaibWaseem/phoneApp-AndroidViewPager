@@ -1,9 +1,11 @@
 package com.shahzaib.phone
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import java.io.Serializable
 
 class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fm, lifecycle) {
     override fun getItemCount(): Int {
@@ -17,5 +19,15 @@ class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle): FragmentState
         else if (position == 1)
             fragment = ContactsFragment()
         return fragment
+    }
+
+    fun createFragment(position: Int, contactList: ArrayList<Contact>): Fragment {
+        val bundle: Bundle = Bundle()
+        val contactsFragment = ContactsFragment()
+
+        bundle.putSerializable("contactList", contactList)
+        contactsFragment.arguments = bundle
+
+        return ContactsFragment()
     }
 }
