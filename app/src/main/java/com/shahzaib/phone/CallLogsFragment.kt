@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shahzaib.phone.adapters.CallLogsListAdapter
-import com.shahzaib.phone.adapters.ContactsListAdapter
 import com.shahzaib.phone.databinding.CallLogsFragmentBinding
-import com.shahzaib.phone.databinding.ContactsFragmentBinding
 
 class CallLogsFragment: Fragment() {
     private lateinit var binding: CallLogsFragmentBinding
