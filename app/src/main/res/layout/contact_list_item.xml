@@ -29,7 +29,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        tools:text="12:00PM"
+        tools:text="9003209902"
         app:layout_constraintTop_toBottomOf="@+id/contactName"
         app:layout_constraintStart_toEndOf="@+id/contactImage" />
 
