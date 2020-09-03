@@ -2,13 +2,13 @@ package com.shahzaib.phone
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import com.shahzaib.phone.databinding.ViewPagerActivityBinding
-import kotlinx.android.synthetic.main.view_pager_activity.*
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ViewPagerActivity : AppCompatActivity() {
     private lateinit var binding: ViewPagerActivityBinding
+    private lateinit var mAdapter: ViewPagerAdapter
+    private lateinit var tabLayoutMediator: TabLayoutMediator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,14 +16,20 @@ class ViewPagerActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.tabLayout.addTab(tabLayout.newTab().setText("Dialer"))
-        binding.tabLayout.addTab(tabLayout.newTab().setText("Call Logs"))
-        binding.tabLayout.addTab(tabLayout.newTab().setText("Contacts"))
+        mAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
 
+        tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
+            if (position == 0){
+                tab.text = "Call Logs"
+                mAdapter.createFragment(position)
+            }
+            else if (position == 1){
+                tab.text = "Contacts"
+                mAdapter.createFragment(position)
+            }
+        }
 
-
-//        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
-//
-//        }.attach()
+        binding.pager.adapter = mAdapter
+        tabLayoutMediator.attach()
     }
 }

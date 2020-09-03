@@ -1,19 +1,21 @@
 package com.shahzaib.phone
 
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
-
+class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fm, lifecycle) {
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return 2
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        var fragment: Fragment = Fragment()
+        if (position == 0)
+            fragment =  CallLogsFragment()
+        else if (position == 1)
+            fragment = ContactsFragment()
+        return fragment
     }
 }
