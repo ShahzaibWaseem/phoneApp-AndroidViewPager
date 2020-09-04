@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shahzaib.phone.adapters.CallLogsListAdapter
 import com.shahzaib.phone.databinding.CallLogsFragmentBinding
 import android.provider.CallLog.Calls
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CallLogsFragment: Fragment() {
     private lateinit var binding: CallLogsFragmentBinding
@@ -44,21 +47,21 @@ class CallLogsFragment: Fragment() {
         Log.i("readContacts", "Reading Contacts")
         val contentResolver = mContext.contentResolver
         val callLogsUri: Uri = Uri.parse("content://call_log/calls")
-        val callLogsCursor: Cursor? = contentResolver.query(callLogsUri, null, null, null, null)
+        val callLogsCursor: Cursor? = contentResolver.query(callLogsUri, null, null, null, Calls.DEFAULT_SORT_ORDER)
 
         if (callLogsCursor!!.moveToFirst()) {
             do {
-                val name: String= callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.CACHED_NAME))
+//                val name: String= callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.CACHED_NAME))
                 val number: String= callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.NUMBER))
-                val duration: String = callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.DURATION))
+                val date: Long = callLogsCursor.getLong(callLogsCursor.getColumnIndex(Calls.DATE))
                 val callType: Int = Integer.parseInt(callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.TYPE)))
-                var description: String = ""
 
-                description = "$number $duration $callType"
-                logsList.add(CallLog(name, description, null))
+                val formatter: SimpleDateFormat = SimpleDateFormat("dd/MM/YYYY, hh:mm a")
+                val dateString: String = formatter.format(Date(date))
+                logsList.add(CallLog(number, number, dateString.split(",")[0],
+                    dateString.split(",")[1], callType, null))
             } while (callLogsCursor.moveToNext())
         }
-
         callLogsCursor.close()
     }
 }

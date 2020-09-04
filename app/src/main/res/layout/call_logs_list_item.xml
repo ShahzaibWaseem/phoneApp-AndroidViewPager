@@ -22,15 +22,56 @@
         tools:text="Shahzaib Waseem"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/callLogImage"/>
-
-    <TextView
-        android:id="@+id/callLogDescription"
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        tools:text="12:00PM"
         app:layout_constraintTop_toBottomOf="@+id/callLogName"
-        app:layout_constraintStart_toEndOf="@+id/callLogImage" />
+        app:layout_constraintStart_toEndOf="@+id/callLogImage">
+
+        <ImageView
+            android:id="@+id/callTypeIcon"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_person_placeholder"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/callLogNumber"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/callLogNumber"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:gravity="end"
+            android:textColor="#8C8C8C"
+            android:layout_marginStart="20dp"
+            tools:text="9003209902"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/callTypeIcon" />
+
+        <TextView
+            android:id="@+id/callLogDate"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textColor="#8C8C8C"
+            android:layout_marginStart="20dp"
+            tools:text="04/10/2020"
+            app:layout_constraintStart_toEndOf="@+id/callLogNumber"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/callLogTime"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textColor="#8C8C8C"
+            android:layout_marginStart="20dp"
+            tools:text="12:20 AM"
+            app:layout_constraintStart_toEndOf="@+id/callLogDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
