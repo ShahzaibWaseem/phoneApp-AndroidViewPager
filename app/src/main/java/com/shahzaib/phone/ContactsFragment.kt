@@ -1,7 +1,9 @@
 package com.shahzaib.phone
 
+import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
@@ -51,13 +53,27 @@ class ContactsFragment: Fragment() {
                 val name: String = nameCursor.getString(nameCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                 var number: String = ""
                 if (nameCursor.getInt(nameCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0){
-                    val numberCursor: Cursor? = contentResolver.query(
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    val numberCursor: Cursor? = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                         null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null)
                     while (numberCursor!!.moveToNext()) {
                         number = numberCursor.getString(numberCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                     }
                     numberCursor.close()
+
+                    val phoneContactID = nameCursor.getLong(nameCursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup._ID))
+                    val contactUri: Uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, phoneContactID)
+                    val photoUri: Uri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY)
+
+                    val photoCursor: Cursor? = contentResolver.query(photoUri, arrayOf(ContactsContract.Contacts.Photo.PHOTO),
+                        null, null, null)
+
+                    if (photoCursor!!.moveToFirst()) {
+                        val photo = photoCursor.getBlob(0)
+                        if (photo != null){
+                            Log.i("Photo print",photo.toString())
+                        }
+                    }
+                    photoCursor.close()
                 }
                 contactList.add(Contact(name, number))
             } while (nameCursor.moveToNext())
