@@ -27,6 +27,7 @@ class ViewPagerActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CALL_LOG), CALL_LOGS_REQUEST_CODE)
 
         mAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        binding.pager.offscreenPageLimit = 1
 
         tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
             if (position == 0){

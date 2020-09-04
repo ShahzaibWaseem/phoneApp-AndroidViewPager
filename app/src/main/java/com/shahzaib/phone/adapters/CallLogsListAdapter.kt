@@ -1,12 +1,15 @@
 package com.shahzaib.phone.adapters
 
 import android.content.Context
+import android.provider.CallLog.Calls.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.recyclerview.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.shahzaib.phone.CallLog
 import com.shahzaib.phone.R
 
@@ -31,10 +34,17 @@ class CallLogsListAdapter(private var list: ArrayList<CallLog>, private val cont
         if (list[position].name == null) {
             holder.name.text = list[position].number
             holder.number.visibility = View.GONE
+            val dateTextViewParams = holder.date.layoutParams as ConstraintLayout.LayoutParams
+            dateTextViewParams.marginStart = 10
         }
         else {
             holder.name.text = list[position].name
             holder.number.text = list[position].number
+        }
+        when (list[position].callType){
+            INCOMING_TYPE -> holder.callTypeIcon.setImageDrawable(getDrawable(context, R.drawable.ic_incoming_call))
+            MISSED_TYPE -> holder.callTypeIcon.setImageDrawable(getDrawable(context, R.drawable.ic_missed_call))
+            OUTGOING_TYPE -> holder.callTypeIcon.setImageDrawable(getDrawable(context, R.drawable.ic_outgoing_call))
         }
         holder.date.text = list[position].date
         holder.time.text = list[position].time
