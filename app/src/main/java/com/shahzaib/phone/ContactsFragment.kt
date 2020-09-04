@@ -3,6 +3,8 @@ package com.shahzaib.phone
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shahzaib.phone.adapters.ContactsListAdapter
 import com.shahzaib.phone.databinding.ContactsFragmentBinding
+import java.io.ByteArrayInputStream
 
 class ContactsFragment: Fragment() {
     private lateinit var binding: ContactsFragmentBinding
@@ -52,6 +55,7 @@ class ContactsFragment: Fragment() {
                 val id: String = nameCursor.getString(nameCursor.getColumnIndex(ContactsContract.Contacts._ID))
                 val name: String = nameCursor.getString(nameCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                 var number: String = ""
+                var photo: Bitmap? = null
                 if (nameCursor.getInt(nameCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0){
                     val numberCursor: Cursor? = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                         null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null)
@@ -68,14 +72,14 @@ class ContactsFragment: Fragment() {
                         null, null, null)
 
                     if (photoCursor!!.moveToFirst()) {
-                        val photo = photoCursor.getBlob(0)
-                        if (photo != null){
-                            Log.i("Photo print",photo.toString())
+                        val data = photoCursor.getBlob(0)
+                        if (data != null){
+                            photo = BitmapFactory.decodeStream(ByteArrayInputStream(data))
                         }
                     }
                     photoCursor.close()
                 }
-                contactList.add(Contact(name, number))
+                contactList.add(Contact(name, number, photo))
             } while (nameCursor.moveToNext())
         }
         nameCursor.close()

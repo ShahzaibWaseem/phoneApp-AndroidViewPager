@@ -1,3 +1,5 @@
 package com.shahzaib.phone
 
-class Contact (var name: String, var number: String)
+import android.graphics.Bitmap
+
+class Contact (var name: String, var number: String, var photo: Bitmap?)

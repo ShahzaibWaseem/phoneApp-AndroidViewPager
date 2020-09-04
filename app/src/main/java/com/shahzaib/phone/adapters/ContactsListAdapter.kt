@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shahzaib.phone.Contact
@@ -15,6 +16,7 @@ class ContactsListAdapter(private var list: ArrayList<Contact>, private val cont
     class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.contactName)
         val number: TextView = view.findViewById(R.id.contactNumber)
+        val photo: ImageView = view.findViewById(R.id.contactImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -25,6 +27,8 @@ class ContactsListAdapter(private var list: ArrayList<Contact>, private val cont
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.name.text = list[position].name
         holder.number.text = list[position].number
+        if (list[position].photo != null)
+            holder.photo.setImageBitmap(list[position].photo)
     }
 
     override fun getItemCount(): Int = list.size
