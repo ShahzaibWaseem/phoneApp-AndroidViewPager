@@ -23,6 +23,9 @@ class ViewPagerActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), CONTACTS_REQUEST_CODE)
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CALL_LOG), CALL_LOGS_REQUEST_CODE)
+
         mAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
 
         tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
@@ -42,5 +45,6 @@ class ViewPagerActivity : AppCompatActivity() {
 
     companion object {
         private const val CONTACTS_REQUEST_CODE = 1
+        private const val CALL_LOGS_REQUEST_CODE = 2
     }
 }

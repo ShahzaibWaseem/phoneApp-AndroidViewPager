@@ -15,7 +15,10 @@ class CallLogsListAdapter(private var list: ArrayList<CallLog>, private val cont
 
     class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.callLogName)
-        val description: TextView = view.findViewById(R.id.callLogDescription)
+        val number: TextView = view.findViewById(R.id.callLogNumber)
+        val date: TextView = view.findViewById(R.id.callLogDate)
+        val time: TextView = view.findViewById(R.id.callLogTime)
+        val callTypeIcon: ImageView = view.findViewById(R.id.callTypeIcon)
         val photo: ImageView = view.findViewById(R.id.callLogImage)
     }
 
@@ -25,8 +28,16 @@ class CallLogsListAdapter(private var list: ArrayList<CallLog>, private val cont
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.name.text = list[position].name
-        holder.description.text = list[position].description
+        if (list[position].name == null) {
+            holder.name.text = list[position].number
+            holder.number.visibility = View.GONE
+        }
+        else {
+            holder.name.text = list[position].name
+            holder.number.text = list[position].number
+        }
+        holder.date.text = list[position].date
+        holder.time.text = list[position].time
         if (list[position].photo != null)
             holder.photo.setImageBitmap(list[position].photo)
     }
