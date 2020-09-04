@@ -28,8 +28,14 @@ class CallLogsListAdapter(private var list: ArrayList<CallLog>, private val cont
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.name.text = list[position].name
-        holder.number.text = list[position].number
+        if (list[position].name == null) {
+            holder.name.text = list[position].number
+            holder.number.visibility = View.GONE
+        }
+        else {
+            holder.name.text = list[position].name
+            holder.number.text = list[position].number
+        }
         holder.date.text = list[position].date
         holder.time.text = list[position].time
         if (list[position].photo != null)

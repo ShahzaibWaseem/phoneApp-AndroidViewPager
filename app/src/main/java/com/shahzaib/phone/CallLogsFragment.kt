@@ -51,14 +51,16 @@ class CallLogsFragment: Fragment() {
 
         if (callLogsCursor!!.moveToFirst()) {
             do {
-//                val name: String= callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.CACHED_NAME))
+                val name: String?= callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.CACHED_NAME))
                 val number: String= callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.NUMBER))
                 val date: Long = callLogsCursor.getLong(callLogsCursor.getColumnIndex(Calls.DATE))
                 val callType: Int = Integer.parseInt(callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.TYPE)))
 
                 val formatter: SimpleDateFormat = SimpleDateFormat("dd/MM/YYYY, hh:mm a")
                 val dateString: String = formatter.format(Date(date))
-                logsList.add(CallLog(number, number, dateString.split(",")[0],
+
+
+                logsList.add(CallLog(name, number, dateString.split(",")[0],
                     dateString.split(",")[1], callType, null))
             } while (callLogsCursor.moveToNext())
         }

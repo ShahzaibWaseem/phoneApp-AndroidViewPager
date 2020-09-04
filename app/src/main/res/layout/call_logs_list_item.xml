@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:textColor="@color/design_default_color_on_primary"
         tools:text="Shahzaib Waseem"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/callLogImage"/>
@@ -43,9 +44,9 @@
 
         <TextView
             android:id="@+id/callLogNumber"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:gravity="end"
+            android:gravity="start"
             android:textColor="#8C8C8C"
             android:layout_marginStart="20dp"
             tools:text="9003209902"
