@@ -21,8 +21,11 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
+        android:textColor="@color/design_default_color_on_primary"
+        android:gravity="center_vertical"
         tools:text="Shahzaib Waseem"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/contactNumber"
         app:layout_constraintStart_toEndOf="@+id/contactImage"/>
 
     <TextView
@@ -30,9 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_vertical"
+        android:textColor="#8C8C8C"
         tools:text="9003209902"
         app:layout_constraintTop_toBottomOf="@+id/contactName"
-        app:layout_constraintStart_toEndOf="@+id/contactImage" />
+        app:layout_constraintStart_toEndOf="@+id/contactImage"
+        app:layout_constraintBottom_toBottomOf="@+id/contactImage"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

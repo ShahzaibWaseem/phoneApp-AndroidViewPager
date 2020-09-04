@@ -6,13 +6,15 @@
     android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/callLogImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_person_placeholder"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#FFF"/>
 
     <TextView
         android:id="@+id/callLogName"
@@ -22,25 +24,28 @@
         android:textColor="@color/design_default_color_on_primary"
         tools:text="Shahzaib Waseem"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/callLogImage"/>
+        app:layout_constraintBottom_toTopOf="@+id/callLogDescription"
+        app:layout_constraintStart_toEndOf="@+id/callTypeIcon"/>
+
+    <ImageView
+        android:id="@+id/callTypeIcon"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_person_placeholder"
+        app:layout_constraintTop_toTopOf="@+id/callLogImage"
+        app:layout_constraintStart_toEndOf="@+id/callLogImage"
+        app:layout_constraintBottom_toBottomOf="@+id/callLogImage"
+        app:layout_constraintEnd_toStartOf="@+id/callLogDescription"/>
     
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/callLogDescription"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/callLogName"
-        app:layout_constraintStart_toEndOf="@+id/callLogImage">
-
-        <ImageView
-            android:id="@+id/callTypeIcon"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@drawable/ic_person_placeholder"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/callLogNumber"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/callTypeIcon"
+        app:layout_constraintBottom_toBottomOf="@+id/callLogImage">
 
         <TextView
             android:id="@+id/callLogNumber"
@@ -48,10 +53,9 @@
             android:layout_height="20dp"
             android:gravity="start"
             android:textColor="#8C8C8C"
-            android:layout_marginStart="20dp"
             tools:text="9003209902"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/callTypeIcon" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/callLogDate"
