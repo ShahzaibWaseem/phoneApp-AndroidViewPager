@@ -2,7 +2,10 @@ package com.shahzaib.phone
 
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +19,8 @@ import com.shahzaib.phone.databinding.CallLogsFragmentBinding
 import android.provider.CallLog.Calls
 import java.text.SimpleDateFormat
 import java.util.*
+import java.nio.file.Files
+import java.nio.file.Paths
 import kotlin.collections.ArrayList
 
 class CallLogsFragment: Fragment() {
@@ -52,16 +57,23 @@ class CallLogsFragment: Fragment() {
         if (callLogsCursor!!.moveToFirst()) {
             do {
                 val name: String?= callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.CACHED_NAME))
+                val photoUri: String? = callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.CACHED_PHOTO_URI))
+                var photo: Bitmap? = null
                 val number: String= callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.NUMBER))
                 val date: Long = callLogsCursor.getLong(callLogsCursor.getColumnIndex(Calls.DATE))
                 val callType: Int = Integer.parseInt(callLogsCursor.getString(callLogsCursor.getColumnIndex(Calls.TYPE)))
 
+                Log.i("photoURI", "photoUri: $photoUri")
+
                 val formatter: SimpleDateFormat = SimpleDateFormat("dd/MM/YYYY, hh:mm a")
                 val dateString: String = formatter.format(Date(date))
 
+                if (photoUri != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && Files.exists(Paths.get(photoUri))) {
+                    photo = BitmapFactory.decodeFile(photoUri)
+                }
+                Log.i("photo BITMAP", "photo : $photo")
 
-                logsList.add(CallLog(name, number, dateString.split(",")[0],
-                    dateString.split(",")[1], callType, null))
+                logsList.add(CallLog(name, number, dateString.split(",")[0], dateString.split(",")[1], callType, photo))
             } while (callLogsCursor.moveToNext())
         }
         callLogsCursor.close()
